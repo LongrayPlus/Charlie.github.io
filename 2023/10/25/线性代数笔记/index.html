@@ -1,0 +1,843 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>How to build a new blog | Website of Charlie</title>
+    <meta name="author" content="Charlie" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://cdn.staticfile.org" />
+<script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.staticfile.org/highlight.js/11.8.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>WEBSITE OF CHARLIE</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;WEBSITE OF CHARLIE</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>How to build a new blog</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/10/25
+        </span>
+        
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h2 id="applications-linéaires">Applications linéaires</h2>
+<h3 id="définition-1">Définition 1</h3>
+<p>Soit E et E ′ deux K-espaces vectoriels, une application f : E → E ′
+est dite $application  linéaire $ si elle est compatible avec les
+structures d’espaces vectoriels, c’est-à-dire : $∀(x,y) ∈ E^2, ∀(λ,μ) ∈
+^2, f(λ.x + μ.y) = λ.f(x) + μ.f(y) $</p>
+<p>L’ensemble des applications linéaires de E dans E ′ se note : <span
+class="math inline">\(L_K\)</span> (E, E ′) ou <span
+class="math inline">\(L\)</span> (E, E ′) lorsqu’il n’y a pas ambiguïté
+sur le corps <span class="math inline">\(\mathbb{K}\)</span></p>
+<span id="more"></span>
+<h4 id="ceci-est-équivalent证以下两条">Ceci est
+équivalent(证以下两条):</h4>
+<ul>
+<li><span class="math inline">\(\forall (x,y)\in
+E^2,f(x+y)=f(x)+f(y)\)</span></li>
+<li><span class="math inline">\(\forall x \in E,\forall \lambda \in
+\mathbb{K},f(\lambda.x)=\lambda.f(x)\)</span></li>
+</ul>
+<h4 id="colorlightblue分析"><span
+class="math inline">\(\color{lightblue}分析\)</span></h4>
+<ul>
+<li><p><span class="math inline">\((\lambda.x +\mu.y)\in E,f(\lambda.x
++\mu.y)\in E&#39;\)</span></p></li>
+<li><p><span class="math inline">\(\lambda.f(x) \in
+E&#39;\)</span></p></li>
+<li><p>E , E'都是数域<span
+class="math inline">\(\mathbb{K}\)</span>下的线性空间</p></li>
+<li><p>Soit E et E' deux <span
+class="math inline">\(\mathbb{K}\)</span>-espaces vectoriels,soit f<span
+class="math inline">\(\in L(E,E&#39;)\)</span></p>
+<ul>
+<li><p>f(<span class="math inline">\(0_E\)</span>)=?</p>
+<p><span
+class="math inline">\(f(0_E)=f(0_E+0_E)=f(0_E)+f(0_E)=2f(0_E)\)</span></p>
+<p>donc <span class="math inline">\(f(0_E)=0_{E&#39;}\)</span></p></li>
+<li><p>soit <span class="math inline">\(x \in E,f(-x)=?\)</span></p>
+<p><span class="math inline">\(f(-x)=f(-1.x)=-1.f(x)=-f(x) \in
+E&#39;\)</span></p></li>
+</ul></li>
+</ul>
+<h3 id="définition-2">Définition 2</h3>
+<p>1 Une application ==<span
+class="math inline">\(\color{red}linéaire\)</span>== de E dans E ′ est
+aussi appelée <span class="math inline">\(\color{red}morphisme\)</span>
+ou <span class="math inline">\(\color{red}homomorphisme\)</span>
+d’espaces vectoriels. 2 Lorsque E = E ′, on parle <span
+class="math inline">\(\color{red}d’endomorphisme \ de \ E\)</span> et on
+note <span class="math inline">\(L_K(E)\)</span> ou <span
+class="math inline">\(L\)</span> (E). 3 Lorsque f est bijective, on
+parle <span class="math inline">\(\color{red}d’isomorphisme \ entre\  E\
+et\ E&#39;\)</span> . 4 Lorsque E = E ′ et f est bijective, on parle
+<span class="math inline">\(\color{red}d’automorphisme\ de\ E\)</span>
+et on note <span class="math inline">\(GL_\mathbb{K}\)</span>(E) ou
+GL(E). 5 Lorsque E ′ = <span class="math inline">\(\mathbb{K}\)</span>,
+on parle <span class="math inline">\(\color{red}de\ forme\
+linéaire\)</span> et on note <span
+class="math inline">\(E^*\)</span>.(<span
+class="math inline">\(L(E,E&#39;) \overset{def}{=}L(E)\)</span>)
+Remarque :同态、自同态、同构、自同构、线性泛函</p>
+<p>同态就是线性映射</p>
+<h4 id="example">Example</h4>
+<ol type="1">
+<li><span class="math inline">\(f:E \rightarrow E&#39;\\ x \longmapsto
+0_{E&#39;}\)</span></li>
+</ol>
+<p>ici ,f est une application nulle (linéaire)</p>
+<ol start="2" type="1">
+<li><span class="math inline">\(f:E \rightarrow E\\ x \longmapsto
+f(x)=x\)</span></li>
+</ol>
+<p>f est linéaire</p>
+<ol start="3" type="1">
+<li><span class="math inline">\(f:\mathbb{R}^3 \rightarrow
+\mathbb{R}^2\\ (x,y,z) \longmapsto (x+y,y+z)\)</span></li>
+</ol>
+<p>f est linéaire</p>
+<ol start="4" type="1">
+<li><span class="math inline">\(f:\mathbb{R}^3 \rightarrow
+\mathbb{R}^2\\ (x,y,z) \longmapsto (xy,yz)\)</span></li>
+</ol>
+<p>f n'est pas linéaire</p>
+<ol start="5" type="1">
+<li><span class="math inline">\(f:\mathbb{R}^3 \rightarrow
+\mathbb{R}^2\\ (x,y,z) \longmapsto (x+y,z+3)\)</span></li>
+</ol>
+<p>f n'est pas linéaire car <span class="math inline">\(f(0,0,0)≠
+(0,0,0)\)</span></p>
+<p>(6)$E =C' ([0,1],) \ F =C^0 ([0,1],) $</p>
+<p><span class="math inline">\(D : E \rightarrow F \\f \longmapsto
+D(f)=f&#39;\)</span></p>
+<p>En fait ,on a <span class="math inline">\(\forall (f,g)\in
+E^2,(f+g)&#39;=f&#39;+g&#39;\)</span></p>
+<p>et <span class="math inline">\(\forall f \in E,\forall \lambda \in
+\mathbb{R},(\lambda.f)=\lambda.f&#39;\)</span></p>
+<p>donc ,f est linéaire</p>
+<ol start="7" type="1">
+<li>Soit <span class="math inline">\(x_0\)</span> une vecteur de E(<span
+class="math inline">\(\mathbb{k}-espace\ vectoriel\)</span>)</li>
+</ol>
+<p>l'application <span class="math inline">\(T:E \rightarrow E \\ x
+\longmapsto x+x_0\)</span></p>
+<p>T translation n'est pas linéaire car <span
+class="math inline">\(T(0_E)=x_0≠0_E\)</span></p>
+<p>总结：</p>
+<p>首先，判断<span class="math inline">\(f(0_E)=0_{E&#39;}\)</span></p>
+<p>其次，证明：<span
+class="math inline">\(f(\lambda.x_1+\mu.x_2)=\lambda.f(x_1)+\mu.f(x_2)\)</span></p>
+<p>如果相等，则linéaire；反之，则non linéaire</p>
+<h3 id="proposition-1">Proposition 1</h3>
+<p>Si E et E′ sont deux <span class="math inline">\(\mathbb{K}-espaces\
+vectoriels\)</span>, alors : <span class="math inline">\(L (E, E′)\ est\
+un\ \mathbb{K}-espace\ vectoriel\)</span></p>
+<p>如何证明A是<span
+class="math inline">\(\mathbb{K}\)</span>的子空间？</p>
+<ol type="1">
+<li>Il est immédiat que l'application nulle <span
+class="math inline">\(x \longmapsto 0_E\)</span> est linéaire de <span
+class="math inline">\(E\)</span> dans <span
+class="math inline">\(E&#39;\)</span></li>
+<li>证明A中的两个元素经过<span class="math inline">\((\lambda,\mu)\in
+\mathbb{K}^2\)</span>线性组合后仍在A,则A是<span
+class="math inline">\(\mathbb{K}\)</span>的子空间</li>
+</ol>
+<h3 id="proposition-2">Proposition 2</h3>
+<p>Soit <span class="math inline">\(E\)</span> et <span
+class="math inline">\(E&#39;\)</span> deux <span
+class="math inline">\(\mathbb{K}\)</span>-espaces vectoriels et soit
+<span class="math inline">\(f \in L(E, E&#39;)\)</span>.</p>
+<p>Si <span class="math inline">\(F\)</span> est un sous-espace
+vectoriel de <span class="math inline">\(E\)</span>, alors :</p>
+<p><span class="math inline">\(f(F) = \{f(x), x \in F\}\)</span> est un
+sous-espace vectoriel de <span
+class="math inline">\(E&#39;\)</span>.</p>
+<p>L'ensemble des images par <span class="math inline">\(f\)</span> des
+éléments de <span class="math inline">\(F\)</span>, appelé <span
+class="math inline">\(\color{red}image\ directe\ de\ F\ par\
+f\)</span>.</p>
+<h3 id="proposition-2-1">proposition 2)</h3>
+<p>Soit <span class="math inline">\(E\)</span> et <span
+class="math inline">\(E&#39;\)</span> deux <span
+class="math inline">\(K\)</span>-espaces vectoriels et soit <span
+class="math inline">\(f \in L(E, E&#39;)\)</span>. Si <span
+class="math inline">\(F\)</span> est un sous-espace vectoriel de <span
+class="math inline">\(E\)</span>, alors : <span
+class="math inline">\(f(F) \mathop{=}\limits^{Not} \{f(x), x \in
+F\}\)</span> est un sous-espace vectoriel de <span
+class="math inline">\(E\)</span>. L'ensemble des images par <span
+class="math inline">\(f\)</span> des éléments de <span
+class="math inline">\(F\)</span>, appelé image directe de <span
+class="math inline">\(F\)</span> par <span
+class="math inline">\(f\)</span>.</p>
+<p>De même, si <span class="math inline">\(F&#39;\)</span> est un
+sous-espace vectoriel de <span class="math inline">\(E&#39;\)</span>,
+alors : <span class="math inline">\(f^{-1}(F&#39;)
+\mathop{=}\limits^{Not} \{x \in E, f(x) \in F&#39;\}\)</span> est un
+sous-espace vectoriel de <span class="math inline">\(E\)</span>.</p>
+<h3 id="définition-3">Définition 3</h3>
+<p>Soit E et E' deux K-espaces vectoriels, et f ∈ L(E, E'), alors :</p>
+<ul>
+<li><p>L'image de E par f est un sous-espace vectoriel de E' noté :
+<span class="math display">\[\text{Im}(f) \mathop{=}\limits^{Not} f(E) =
+\{f(x), x \in E\}\]</span></p></li>
+<li><p>L'image réciproque de <span
+class="math inline">\(\{0E&#39;\}\)</span> par f est un sous-espace
+vectoriel de E appelé <span class="math inline">\(\color{red}noyau\ de\
+f\)</span> et noté</p>
+<p><span class="math inline">\(\text{Ker}(f) \mathop{=}\limits^{Not}
+f^{-1}(\{0_{E&#39;}\}) = \{x \in E, f(x) =
+0_{E&#39;}\}\)</span></p></li>
+</ul>
+<h4 id="example1">Example1</h4>
+<p>Soit<span class="math inline">\(f:\mathbb{R}^3 \rightarrow
+\mathbb{R}^3\\ (x,y,z) \longmapsto (x+y-z,2x+y-3z,3x+2y-4z)\)</span></p>
+<p>Déterminer <span class="math inline">\(Im(f)\ et\ Ker(f)\)</span></p>
+<p>==Ker(f)==: <span
+class="math inline">\(ker(f)=f(x,y,z),f(x,y,z)=(0,0,0)\)</span></p>
+<p>Ceci est équivalent <span
+class="math inline">\(x+y-z=0\\2x+y-3z=0\\3x+2y-4z=0\)</span></p>
+<p><span class="math inline">\(S \Leftrightarrow
+\{vect(2,-1,-1)\}=\{\lambda.(2,-1,-1,\lambda \in \R\}\)</span> , une
+droite vectorielle</p>
+<p>Ker(f) =S</p>
+<p>==Im(f)==:Soit <span class="math inline">\((x&#39;,y&#39;,z&#39;) \in
+Im(f)\)</span>,on a alors il existe <span class="math inline">\((x,y,z
+\in \R^3)\)</span>,tel que:</p>
+<p><span
+class="math inline">\(x+y-z=x&#39;\\2x+y-3z=y&#39;\\3x+2y-4z=z&#39;\)</span><span
+class="math inline">\(\Rightarrow\)</span> <span
+class="math inline">\(x+y-z=x&#39;\\y+z=2x&#39;-y&#39;\\
+0=x&#39;+y&#39;-z&#39;\)</span></p>
+<p>le système est compatible si on a <span
+class="math inline">\(x&#39;+y&#39;-z&#39;=0\)</span></p>
+<p>l'image de f: <span
+class="math inline">\(Im(f)=\{(x&#39;,y&#39;,z&#39;),x&#39;+y&#39;-z&#39;=0\}=\{vect(f((-1,1,0),(1,0,1))\}\)</span></p>
+<h4 id="example2">Example2</h4>
+<p><span class="math inline">\(F = {f ∈ C^1([a, b], \R), f(a) =
+0}\)</span> est un sous-espace vectoriel de <span
+class="math inline">\(E = C^1([a,b],\R)\)</span></p>
+<p>Méthode avec Ker de Im</p>
+<p><span class="math inline">\(\varphi:E \to \R \\f \mapsto
+\varphi(f)\mathop{=}\limits^{def}f(a)\)</span></p>
+<ol type="1">
+<li><p>est-ce que <span class="math inline">\(\varphi\)</span> est
+linéaire ?</p></li>
+<li><p>Si oui Ker(<span class="math inline">\(\varphi\)</span>)</p></li>
+</ol>
+<p>Réponse</p>
+<p>(1)Soit <span class="math inline">\((f,g) \in
+E^2,soit(\lambda,\mu)\in \R^2\)</span></p>
+<p><span
+class="math inline">\(\varphi(\lambda.f+\mu.g)=(\lambda.f+\mu.g)(a)=\lambda.f(a)+\mu.g(a)=\lambda.\varphi(f)+\mu.\varphi(g)\)</span></p>
+<p>on a alors <span class="math inline">\(\varphi\)</span> est
+linéaire.</p>
+<ol start="2" type="1">
+<li><span class="math inline">\(Ker(\varphi)=\{f \in E,\varphi(f)=0=\{f
+\in E,f(a)=0\}\)</span></li>
+</ol>
+<p>On a bien <span class="math inline">\(F = Ker(\varphi)\)</span></p>
+<p>Donc F est sous espace vectoriel de E</p>
+<h3 id="colorredproposition-3-important"><span
+class="math inline">\(\color{red}Proposition\ 3\
+(Important)\)</span></h3>
+<p>Soit E et E′ deux <span
+class="math inline">\(\mathbb{K}\)</span>-espaces vectoriels, <span
+class="math inline">\(f ∈ L (E, E ′)\)</span>, alors :</p>
+<p>f est injective si, et seulement si, <span
+class="math inline">\(Ker(f ) = {0_E}\)</span></p>
+<p>f est surjective si, et seulement si, <span
+class="math inline">\(Im(f) = E&#39;\)</span></p>
+<h2 id="résultats-utiles">Résultats utiles</h2>
+<p><span class="math inline">\(f \in L(E,E&#39;),E,E&#39;\ sont\ deux\
+\mathbb{K}-espace-vectorielles\)</span></p>
+<p><span class="math inline">\((x_i)_{i \in I}\)</span> une famille de
+E</p>
+<ul>
+<li>f est injective, <span class="math inline">\((x_i)_{x \in
+I}\)</span> est libre , Alors <span class="math inline">\((f(x_i))_{i
+\in I}\)</span> libre aussi</li>
+</ul>
+<p>Rappel1: <span class="math inline">\(f\ injective\ \Rightarrow
+ker(f)=\{0_E\}\)</span></p>
+<p>Rappel2: <span class="math inline">\((x_i)_{x \in I}\)</span> libre ,
+c'est-à-dire toute sous famille finie libre.</p>
+<ul>
+<li><p>f est sujective, <span class="math inline">\((x_i)_{x \in
+I}\)</span> est génératrice , Alors <span
+class="math inline">\((f(x_i))_{i \in I}\)</span> est génératrice
+aussi</p></li>
+<li><p>f est bijective, <span class="math inline">\((x_i)_{x \in
+I}\)</span> est base , Alors <span class="math inline">\((f(x_i))_{i \in
+I}\)</span> est base aussi</p></li>
+<li><p><span class="math inline">\((x_i)_{x \in I}\)</span> est libre ,
+<span class="math inline">\(Vect(\{f(x_i),i \in I
+\})=Im(f)\)</span></p></li>
+</ul>
+<p><img src="/Users/caozichen/Desktop/个人总结/图片/3.jpg" style="zoom:50%;" /></p>
+<p><img src="/Users/caozichen/Desktop/个人总结/图片/2.jpg" style="zoom:40%;" /></p>
+<h2 id="cas-de-la-dimension-finie">Cas de la dimension finie</h2>
+<p><span class="math inline">\(f \in L(E,E&#39;),E,E&#39;\ sont\ deux\
+\mathbb{K}\ espace\ vectorielles\)</span></p>
+<p><span class="math inline">\(Im(f)=\{y=f(x)\in E, x \in E\}\)</span>
+est une sous espace vectoriel de <span
+class="math inline">\(E&#39;\)</span></p>
+<p>On a ==dim <span class="math inline">\(Im(f) \le\)</span> dim <span
+class="math inline">\(E\)</span>==</p>
+<p>De plus , on a ==dim <span class="math inline">\(Im(f)=\)</span>dim
+<span class="math inline">\(E \Leftrightarrow\ f\
+injective\)</span>==</p>
+<p><img src="/Users/caozichen/Desktop/个人总结/图片/1.jpg" style="zoom:35%;" /></p>
+<h2 id="proposition2">Proposition2</h2>
+<p>Deux espaces vectoriels de dimension finie sont isomorphes, si et
+seulement si , ils ont même dimension</p>
+<p><img src="/Users/caozichen/Library/Application Support/typora-user-images/image-20231018104243279.jpg" alt="image-20231018104243279" style="zoom:25%;" /></p>
+<p><img src="/Users/caozichen/Library/Application Support/typora-user-images/image-20231018104605026.jpg" alt="image-20231018105730028" style="zoom:25%;" /></p>
+<p>PS: 需要证明f是bijective(injective+sujective/ <span
+class="math inline">\(g \circ f=f \circ g = id_E\)</span>)</p>
+<p>证明linéaire的三种情况:</p>
+<p><span
+class="math inline">\(f(\lambda.x+\mu.y)=\lambda.f(x)+\mu.f(y)\)</span></p>
+<p><span class="math inline">\(f(x+y)=f(x)+f(y) ;
+f(\lambda.x)=\lambda.f(x)\)</span></p>
+<p><span
+class="math inline">\(f(\lambda.x+y)=\lambda.f((x)+f(y))\)</span></p>
+<h1 id="rang-dune-application-linéaire">Rang d'une application
+linéaire</h1>
+<h2 id="définition-1-1">Définition 1</h2>
+<p>Soit <span class="math inline">\(E\)</span> et <span
+class="math inline">\(E&#39;\)</span> deux <span
+class="math inline">\(\mathbb{K}-espaces\)</span> vectoriels , <span
+class="math inline">\(f \in L(E,E&#39;)\)</span> telle que <span
+class="math inline">\(Im(f)\)</span> soit de dimension finie , on
+appelle $rang de f $ et on note:</p>
+<p><span class="math inline">\(rang(f) \mathop{=}\limits^{Not}
+dim(Im(f))\)</span></p>
+<p>PS: autre écriture possible <span
+class="math inline">\(rg(f)\)</span></p>
+<h2 id="proposition-3">Proposition 3</h2>
+<p>Soit <span class="math inline">\(E\)</span> et <span
+class="math inline">\(E&#39;\)</span> deux <span
+class="math inline">\(\mathbb{K}-espaces\)</span> vectoriels , <span
+class="math inline">\(f \in L(E,E&#39;)\)</span> , alors:</p>
+<p><span class="math inline">\(E&#39;\)</span> de dimension finie <span
+class="math inline">\(\Rightarrow rang(f) \le dimE&#39;\)</span> et
+[<span class="math inline">\(rang(f)=dimE&#39; \Leftrightarrow f\
+surjective\)</span>]</p>
+<p><span class="math inline">\(E\)</span> de dimension finie <span
+class="math inline">\(\Rightarrow rang(f) \le dimE\)</span> et [<span
+class="math inline">\(rang(f)=dimE \Leftrightarrow f\
+injective\)</span>]</p>
+<h2 id="theoreme-2-colorredtheoreme-du-rang">Théorème 2 (<span
+class="math inline">\(\color{red}Théorème\ du\ rang\)</span>)</h2>
+<p>Soit <span class="math inline">\(E\)</span> et <span
+class="math inline">\(E&#39;\)</span> deux <span
+class="math inline">\(\mathbb{K}-espaces\)</span> vectoriels , <span
+class="math inline">\(f \in \mathcal{L}(E,E&#39;)\)</span> .Si E est de
+<u>dimension finie</u>, alors :</p>
+<p><span class="math inline">\(rang(f)=dimE-dim \ Ker(f)\)</span></p>
+<p><img src="/Users/caozichen/Library/Application Support/typora-user-images/image-20231018111537541.jpg" alt="image-20231018111537541" style="zoom:25%;" /></p>
+<p><img src="/Users/caozichen/Library/Application Support/typora-user-images/image-20231018111921244.jpg" alt="image-20231018111921244" style="zoom:25%;" /></p>
+<h2 id="proposition-4">Proposition 4</h2>
+<p>Soit <span class="math inline">\(E\)</span> un <span
+class="math inline">\(\mathbb{K}-espace\)</span> vectoriel de dimension
+finie et <span class="math inline">\(f ∈ \mathcal{L} (E)\)</span>, alors
+:</p>
+<p><span class="math inline">\(f\ injective \Leftrightarrow f\
+surjective \Leftrightarrow f\ bijective\)</span></p>
+<h2 id="remarque">Remarque</h2>
+<p>C’est faux en dimension infinie. Pourquoi ?</p>
+<p><img src="/Users/caozichen/Library/Application Support/typora-user-images/image-20231018112427207.jpg" alt="image-20231018112427207" style="zoom:25%;" /></p>
+<h2 id="proposition-5">Proposition 5</h2>
+<p>Soit <span class="math inline">\(E\)</span> et <span
+class="math inline">\(E&#39;\)</span> deux <span
+class="math inline">\(\mathbb{K}-espaces\)</span> vectoriels de
+dimensions finies, alors</p>
+<p><span class="math inline">\(\mathcal{L}(E,E&#39;)\)</span>est de
+dimension finie , égale à <span class="math inline">\(dimE \ × \
+dimE&#39;\)</span></p>
+<p><img src="/Users/caozichen/Library/Application Support/typora-user-images/image-20231018113341592.jpg" alt="image-20231018113341592" style="zoom:25%;" /></p>
+<p><img src="/Users/caozichen/Library/Application Support/typora-user-images/image-20231018114254316.jpg" alt="image-20231018114254316" style="zoom:25%;" /></p>
+<h1 id="projection-投影-p_fg-et-p_gf">Projection 投影 <span
+class="math inline">\(P_{F||G}\)</span> et <span
+class="math inline">\(P_{G||F}\)</span></h1>
+<h2 id="rappel-1">Rappel 1</h2>
+<p>Soit <span class="math inline">\(B = (e_1,..., e_n)\)</span> une base
+d’espace vectoriel E de dimension n, alors tout vecteur de l’espace se
+décompose de façon unique en une combinaison linéaire de vecteurs de
+base B. Autrement dite :</p>
+<p><span class="math inline">\(\forall x \in E, \color{red}\exist
+!\)</span><span class="math inline">\((\lambda_1,...,\lambda_n) \in
+\mathbb{K}^n,x = \sum_{i=1}^n \lambda_,e_i\)</span></p>
+<p>Les scalaires <span class="math inline">\(λ_i\)</span> sont appelés
+<span class="math inline">\(\color{red}coordonnées\ du\ vecteur\ x\
+dans\ la\ base\ B\)</span> .</p>
+<h2 id="rappel-2">Rappel 2</h2>
+<p>Souvenez vous <span class="math inline">\(E = F ⊕ G\)</span> ?</p>
+<ol type="1">
+<li>tout élément de E s’écrit, <span
+class="math inline">\(\color{red}de\ manière\ unique\)</span> sous la
+forme <span class="math inline">\(x_1 + x_2\)</span>, où <span
+class="math inline">\(x_1 ∈ F\)</span> et <span
+class="math inline">\(x_2 ∈ G\)</span></li>
+<li>F , G , F+G sous-espaces vectoriels de E , également F , G, F + G
+sont aussi espaces vectoriels .</li>
+<li>Voir aussi le cours de semaine 4 pour au moins 4 méthodes pour
+démontrer <span class="math inline">\(E = F ⊕ G\)</span>.</li>
+</ol>
+<h2 id="definition">Définition</h2>
+<p>Soit E un <span class="math inline">\(\mathbb{K}\)</span>-espace
+vectoriel, F et G deux sous-espaces vectoriels de E tels que <span
+class="math inline">\(E = F ⊕ G\)</span>. On appelle <span
+class="math inline">\(\color{red}projection\ de\ E\ sur\ F\
+parallèlement\ à\ G\)</span> l’endomorphisme(自同态) de E défini par
+:</p>
+<p><span class="math inline">\(P_{F||G}:E \to E\\ x \mapsto x_F , où\ x
+= x_F+x_G\ avec\ x_F \in F\ et\ x_G \in G\)</span></p>
+<h3 id="remarque-1">Remarque</h3>
+<p>Puisque <span class="math inline">\(E = F ⊕ G\)</span>, <span
+class="math inline">\(x_F\)</span> et <span
+class="math inline">\(x_G\)</span> sont uniques donc <span
+class="math inline">\(p_{F∥G}\)</span> est bien définie. De plus, c’est
+un endomorphisme de <span class="math inline">\(E\)</span>.</p>
+<p>isomorphisme(同构) 只要求满射， 并未要求出发空间与映射空间相同</p>
+<h3 id="example-1">Example</h3>
+<p><span class="math inline">\(E = F(\R,\R)_{(\R-e.v.)}\)</span></p>
+<p><span class="math inline">\(F = \{f \in E, f\ paire \}\)</span></p>
+<p><span class="math inline">\(G = \{f \in E, f\ impaire \}\)</span></p>
+<p><span class="math inline">\(P_{F||G}:E \to E\\ f \mapsto
+f_1\)</span></p>
+<p><span class="math inline">\(où\ f_1 =
+\frac{f(x)+f(-x)}{2}\)</span></p>
+<h2 id="proposition-1-1">Proposition 1</h2>
+<p>Soit E un <span class="math inline">\(\mathbb{K}\)</span>-espace
+vectoriel, F et G deux sous-espaces vectoriels de E tels que <span
+class="math inline">\(E = F ⊕ G\)</span>.Alors:</p>
+<ul>
+<li><ul>
+<li><p><span
+class="math inline">\(P_{F||G}+P_{G||F}=id_E\)</span></p></li>
+<li><p><span class="math inline">\(P_{F||G} \circ P_{F||G} =
+P_{F||G}\)</span></p></li>
+<li><p><span class="math inline">\(P_{F||G} \circ P_{G||F} =
+0_{\color{red}L(E)}\)</span></p></li>
+</ul></li>
+<li><ul>
+<li><span class="math inline">\(Im(P_{F||G})=F=\{x \in
+F,P_{F||G}(x)=x\}\)</span></li>
+<li><span
+class="math inline">\(Ker(P_{F||G})=G=Im(P_{G||F})\)</span></li>
+</ul></li>
+</ul>
+<h3 id="example-2">Example</h3>
+<p><span class="math inline">\(E = \R^3\)</span></p>
+<p><span class="math inline">\(F=\{(x,y,z) \in
+\R^3,x-y-z=0\}\)</span></p>
+<p><span class="math inline">\(G=\{(x,y,z) \in \R^3,
+x=z=0\}\)</span></p>
+<ul>
+<li><p><span class="math inline">\(E = F ⊕ G\)</span></p></li>
+<li><p><span class="math inline">\(P_{F||G}(u)\)</span> (<span
+class="math inline">\(pour\ tout\ u=(x,y,z) \in
+\R^3,(x,y,z)=x_F+x_G\)</span>)</p></li>
+</ul>
+<p><span class="math inline">\((x,y,z)=(x,x-z,y)(\in F)+(0,y-x+z,0)(\in
+G)\)</span></p>
+<p>la décomposition est unique. alors pour tout <span
+class="math inline">\(u=(x,y,z),P_{F||G}(x,y,z)=(x,x-z,y)\)</span></p>
+<h1 id="projecteur">Projecteur</h1>
+<h2 id="definition-1">Définition</h2>
+<p>Soit E un espace vectoriel, on appelle <span
+class="math inline">\(\color{red}projecteur\ de\ E\)</span> tout
+endomorphisme p de E tel que <span class="math inline">\(p \circ p =
+p\)</span>.</p>
+<p><span class="math inline">\(P \circ P =P,P \in L(E)\)</span></p>
+<p>Si j'ai une projecteur P, est-ce qu'on peut écrire sous la forme
+Projection?</p>
+<p><img src="/Users/caozichen/Library/Application Support/typora-user-images/image-20231020092600321.jpg" alt="image-20231020092600321" style="zoom:25%;" /></p>
+<h3 id="remarque-2">Remarque</h3>
+<p>Soit E un <span class="math inline">\(\mathbb{K}\)</span>-espace
+vectoriel. Toute projection de E est un projecteur de E et,
+réciproquement, tout projecteur de E est une projection de E.</p>
+<h2 id="proposition-2-2">Proposition 2</h2>
+<p>Si p est un projecteur, on a alors :</p>
+<ol type="1">
+<li>E = Im p ⊕ Ker p</li>
+<li>p est la projection de E sur son image Im p parallèlement à son
+noyau Ker p.</li>
+</ol>
+<h1 id="symetrie-par-rapport-a-un-sous-espace">Symétrie par rapport à un
+sous-espace</h1>
+<h2 id="definition-2">Définition</h2>
+<p>Soit E un <span class="math inline">\(\mathbb{K}\)</span>-espace
+vectoriel, F et G deux sous-espaces vectoriels de E tels que <span
+class="math inline">\(E = F ⊕ G\)</span>. On peut définir de même la
+notion de <span class="math inline">\(\color{red}symétrie\ de\ E\ par\
+rapport\ à\ F, parallèlement\ à\ G\)</span>. C’est
+l’automorphisme(自同构) de E défini par :</p>
+<p><span class="math inline">\(S_{F||G}:E \to E\\ x=x_F+x_G \mapsto x_F
+- x_G , où\ x = x_F+x_G\ avec\ x_F \in F\ et\ x_G \in G\)</span></p>
+<p><img src="/Users/caozichen/Library/Application Support/typora-user-images/image-20231020093045141.jpg" alt="image-20231020093045141" style="zoom:25%;" /></p>
+<h3 id="remarque-3">Remarque</h3>
+<p><span class="math inline">\(S_{F||G}\)</span> est bijective sur <span
+class="math inline">\(E\)</span>.</p>
+<p><span class="math inline">\(S_{F||G} \circ S_{F||G}=id_E\)</span></p>
+<p><span class="math inline">\(S_{F||G}=P_{F||G}-P_{G||F}\)</span></p>
+<h1 id="factorisation分解-des-applications-linéaire">Factorisation(分解)
+des applications linéaire</h1>
+<h2 id="restriction-dune-application-lineaire">Restriction d’une
+application linéaire</h2>
+<h3 id="definition-1-1">Définition 1</h3>
+<p>Si F est un sous-espace vectoriel d’un <span
+class="math inline">\(\mathbb{K}\)</span>-espace vectoriel E, alors la
+<span class="math inline">\(\color{red}restriction\)</span> d’une
+application linéaire <span class="math inline">\(f ∈ L (E,
+E&#39;)\)</span>, notée <span class="math inline">\(f_{|F}\)</span> et
+définie par :</p>
+<p><span class="math inline">\(\forall x \in F ,
+f_{|F}(x)=f(x)\)</span></p>
+<p>est une application linéaire de F dans <span
+class="math inline">\(E&#39;\)</span>. De plus ,</p>
+<p>est une application linéaire</p>
+<h3 id="définition-2-1">Définition 2</h3>
+<p>Si <span class="math inline">\(f \in L(E,E&#39;)\)</span> et <span
+class="math inline">\(F&#39;\)</span> est un sous-espace vectoriel de
+<span class="math inline">\(E&#39;\)</span> tel que <span
+class="math inline">\(f(E) ⊂ F&#39;\)</span>, alors la <span
+class="math inline">\(\color{red}co-restriction\)</span> de <span
+class="math inline">\(f\)</span>, notée <span
+class="math inline">\(f^{|F&#39;}\)</span> et définie par :</p>
+<p><span class="math inline">\(\forall x \in E, f^{|F&#39;}(x)=f(x) \in
+F&#39;\)</span></p>
+<p>est une application linéaire de <span
+class="math inline">\(E\)</span> dans <span
+class="math inline">\(F&#39;\)</span>. De plus,</p>
+<h3 id="remarque-4">Remarque</h3>
+<p>Si F est un sous-espace vectoriel d’un K-espace vectoriel E, F ′ un
+sous-espace vectoriel d’un K-espace vectoriel <span
+class="math inline">\(E&#39;\)</span> et <span class="math inline">\(f ∈
+L (E, E&#39;)\)</span> tels que <span class="math inline">\(f(F) ⊂
+F&#39;\)</span>, nous noterons :</p>
+<p><span class="math inline">\((f_{|F}^{|F&#39;})
+\mathop{=}\limits^{note}_{} f \mathop{|}^{F&#39;}_{F}\)</span></p>
+<h3 id="proposition-1-2">Proposition 1</h3>
+<p>Si F est un sous-espace vectoriel d’un K-espace vectoriel E et f une
+application linéaire de E dans E′, alors : <span
+class="math inline">\(Ker(f_{|F})=F∩Ker(f)\)</span></p>
+<h2 id="inclusion-canonique">Inclusion canonique</h2>
+<h3 id="definition-inclusion-canonique">Définition (Inclusion
+canonique)</h3>
+<p>Soit E un K-espace vectoriel, F un sous-espace vectoriel de E, on
+peut définir l’inclusion canonique de F dans E par :</p>
+<p>On a donc :</p>
+<p><span class="math inline">\(i_{F\sub E} \mathop{=}\limits^{Not}_{}
+(id_E)_{|F}\)</span></p>
+<p>Remarque:</p>
+<h2 id="factorisation-des-applications-lineaires">Factorisation des
+applications linéaires</h2>
+<h3
+id="importanttheoreme-3-factorisation-des-applications-lineaires">(Important)Théorème
+3 (Factorisation des applications linéaires)</h3>
+<p>Soit <span class="math inline">\(E\)</span> et <span
+class="math inline">\(E&#39;\)</span> deux <span
+class="math inline">\(\mathbb{K}\)</span>-espaces vectoriels, <span
+class="math inline">\(f ∈ L (E, E&#39;)\)</span>, <span
+class="math inline">\(F\)</span> un supplémentaire de <span
+class="math inline">\(Ker(f )\)</span> dans <span
+class="math inline">\(E (E = Ker(f ) ⊕ F)\)</span>, alors</p>
+<p><span
+class="math inline">\(\mathop{f}\limits^{\sim}=f|^{Im(f)}_{F}\)</span>
+est une isomorphisme entre <span class="math inline">\(F\)</span> et
+<span class="math inline">\(Im(f)\)</span></p>
+<h1 id="application">Application</h1>
+<h2 id="systèmes-linéaires">Systèmes linéaires</h2>
+<h3 id="definition-5">Définition 5</h3>
+<p>Soit <span class="math inline">\(E\)</span> et <span
+class="math inline">\(E&#39;\)</span> deux <span
+class="math inline">\(\mathbb{K}\)</span>-espaces vectoriels, <span
+class="math inline">\(u ∈ L(E,E&#39;)\ et\ e&#39; ∈ E&#39;\)</span>, on
+appelle <span class="math inline">\(\color{red}système\
+linéaire\)</span> l’équation d’inconnue x ∈ E :</p>
+<p>$()    u(x) = e' $</p>
+<p>L’ensemble :</p>
+<p><span class="math inline">\(Sol(\mathcal{F})={x∈E,
+u(x)=e&#39;}\)</span></p>
+<p>est appelé <span class="math inline">\(\color{red}ensemble\ des\
+solutions\ de\ (\mathcal{F})\)</span>.</p>
+<h3 id="proposition-2-3">Proposition 2</h3>
+<p>Soit <span class="math inline">\(E\)</span> et <span
+class="math inline">\(E&#39;\)</span> deux <span
+class="math inline">\(\mathbb{K}\)</span>-espaces vectoriels, <span
+class="math inline">\(u ∈ L(E,E&#39;)\ et\ e&#39; ∈ E&#39;\)</span>. Une
+condition nécessaire et suﬀisante pour que <span
+class="math inline">\(Sol(\mathcal{F} )≠ ∅\)</span>, appelée <span
+class="math inline">\(\color{red}condition\ de\ compatibilité\ de\
+(\mathcal{F} )\)</span> est :</p>
+<p><span class="math inline">\(e&#39; ∈Im(u)\)</span></p>
+<p><img src="/Users/caozichen/Library/Application Support/typora-user-images/image-20231025111316586.jpg" alt="image-20231025111316586" style="zoom:25%;" /><img src="/Users/caozichen/Library/Application Support/typora-user-images/image-20231025111608544.jpg" alt="image-20231025111608544" style="zoom:25%;" /></p>
+<h2 id="systeme-lineaire-homogene">Système linéaire homogène</h2>
+<h3 id="définition-6">Définition 6</h3>
+<p>Soit <span class="math inline">\(E\)</span> et <span
+class="math inline">\(E&#39;\)</span> deux <span
+class="math inline">\(\mathbb{K}\)</span>-espaces vectoriels, <span
+class="math inline">\(u ∈ L(E,E&#39;)\ et\ e&#39; ∈ E&#39;\)</span>​,Si
+<span class="math inline">\(e&#39; = 0_{E&#39;}\)</span> , le système
+est dit <span class="math inline">\(\color{red}homogène\)</span>. Dans
+ce cas,</p>
+<p><span class="math inline">\(Sol(\mathcal{F}) = Ker(u)\)</span> est un
+sous-espace vectoriel de <span class="math inline">\(E\)</span></p>
+<p>En particulier, <span class="math inline">\(Sol(\mathcal{F})≠
+∅\)</span>.</p>
+<h3 id="définition-7">Définition 7</h3>
+<p>Soit <span class="math inline">\(E\)</span> et <span
+class="math inline">\(E&#39;\)</span> deux <span
+class="math inline">\(\mathbb{K}\)</span>-espaces vectoriels, <span
+class="math inline">\(u ∈ L(E,E&#39;)\ et\ e&#39; ∈ E&#39;\)</span>​,Si
+<span class="math inline">\(e&#39;≠0_{E&#39;}\)</span>,le système:</p>
+<p>$( )   u(x) = 0_{E'} $</p>
+<p>est dit système homogène associé de (<span
+class="math inline">\(\mathcal{F}\)</span>).</p>
+<h3 id="proposition-3-1">Proposition 3</h3>
+<p>Soit <span class="math inline">\(E\)</span> et <span
+class="math inline">\(E&#39;\)</span> deux <span
+class="math inline">\(\mathbb{K}\)</span>-espaces vectoriels, <span
+class="math inline">\(u ∈ L(E,E&#39;)\ et\ e&#39; ∈ E&#39;\)</span>. Si
+<span class="math inline">\(x_0 ∈ Sol(\mathcal{F})\)</span> existe alors
+:</p>
+<p>$Sol() = x_0 + Ker(u) $</p>
+<p><span class="math inline">\(Sol(\mathcal{F})\)</span> est un espace
+aﬀine de direction <span class="math inline">\(Ker(u)\)</span>.</p>
+<h2 id="interpolation-de-lagrange-拉格朗日插值">Interpolation de
+Lagrange 拉格朗日插值</h2>
+<h3 id="definition-8">Définition 8</h3>
+<p><span class="math inline">\(\color{red}Interpolation\)</span> est
+l’opération consistant à trouver une fonction dont la courbe
+représentative passe par des points donnés. Si on exige en plus que la
+fonction soit polynomiale, on parle d’ <span
+class="math inline">\(\color{red}interpolation\
+polynomiale\)</span>.</p>
+<p>Soit <span class="math inline">\(n ∈ \N\)</span>. On note <span
+class="math inline">\(E_n\)</span> l’ensemble des fonctions polynomiales
+de degré <span class="math inline">\(n\)</span> ou moins, c’est-à-dire
+l’ensemble des fonctions <span class="math inline">\(f: \R → \R\)</span>
+telles qu’il existe <span class="math inline">\((a_0, a_1,\ldots, an) ∈
+R_{n+1}\)</span> tels que</p>
+<p><span class="math inline">\(\forall x \in \R, f(x) =
+\mathop{\sum}\limits^{n}_{k=0}a_kx^k\)</span></p>
+<p>Rappel 9</p>
+<p>• <span class="math inline">\(E_n\)</span> est un <span
+class="math inline">\(\R\)</span>-espace vectoriel de dimension finie,
+avec <span class="math inline">\(dimE_n =n+1\)</span>;</p>
+<p>• si une fonction polynomiale de degré <span
+class="math inline">\(n\)</span> a plus de n zéros distincts, alors
+c’est la fonction nulle.</p>
+<p>Exemple:</p>
+<p>Remarque:</p>
+<ul>
+<li><p>对于多项式来说，<span
+class="math inline">\(L_k(x)\)</span>确定了<span
+class="math inline">\(x_k\)</span>的系数，并且确保了<span
+class="math inline">\(f(x)\)</span>对于每一个<span
+class="math inline">\(x_k\)</span>，都有：其他多项式项的系数为0</p></li>
+<li><p>对于3项的多项式来说：</p>
+<ul>
+<li><span class="math inline">\(f(x)= \frac{x-x_2}{x_1-x_2} \cdot
+\frac{x-x_3}{x_1-x_3}f(x_1) + \frac{x-x_1}{x_2-x_1} \cdot
+\frac{x-x_3}{x_2-x_3}f(x_2) + \frac{x-x_1}{x_3-x_1} \cdot
+\frac{x-x_2}{x_3-x_2}f(x_3)\)</span></li>
+</ul></li>
+</ul>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2023 Website of Charlie
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Charlie
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
